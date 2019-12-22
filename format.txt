@@ -1,0 +1,95 @@
+Comments start with a number sign (#).
+New rules have to start without indentation.
+Filters HAVE to be indentated with a tab (not space).
+All filters are optional and can be repeated any 
+ amount of times. You can invert any filter by placing
+ the word NOT infront of the filter like this:
+ 	NOT IN DIM-1
+ 	NOT FACING minecraft:obsidian
+Filters are usually AND-chained. You can explicitly change 
+ the chaining method with the OR or AND keywords for the 
+ following filters. All following filter have to be indented
+ with and additional tab for grouping like this:
+	OR
+		FACING minecraft:bedrock (down)
+		IN DIM1
+		AND
+			IN DIM-1
+			WITHIN 0<=Y<=24
+
+Recipes can be SHAPELESS or AISLE
+
+GROW <BLOCKTYPE> SHAPELESS [PROBABILITY]
+	FACING <DIRECTIONAL>
+	ADJACENT <DIRECTIONAL>
+	EDGES <DIRECTIONAL>
+	CENTER <BLOCKTYPE>
+	IN <WORLD>
+	AT <LOCATION>
+	WITHIN <RANGE>
+	EFFECT <EFFECT>
+	CONSUMING <CONSUMPTION>
+
+GROW <BLOCKTYPE> AISLE [PROBABILITY]
+	YLAYER <-1 | 0 | 1>
+	<AISLE>
+	MAPPING <CHAR> <BLOCKTYPE> 
+	IN <WORLD>
+	AT <LOCATION>
+	WITHIN <RANGE>
+	EFFECT <EFFECT>
+	CONSUMING <CONSUMPTION>
+
+More detailed descriptions below:
+
+BLOCKTYPE
+	game-blocktype, use F3 to inspect ingame.
+
+DIRECTIONAL = <BLOCKTYPE>[@<META>] [AMOUNT] [DIRECTIONLIST]
+	amount defaults to ">= 1"
+
+META
+	sub-block value, nor really supported due to flattening.
+
+AMOUNT = <COMPARATOR> <NUMBER>
+
+COMPARATOR = "=" | "==" | "<" | "<=" | ">" | ">=" | "<>" | "!="
+
+DIRECTIONLIST = [ "~" ] "(" <DIRECTIONS> ")"
+	~ will negate the list, DIRECTIONS are comma separated values of
+	"UP", "DOWN", "NORTH", "EAST", "SOUTH", "WEST"
+	(Recipes do rotate, so compass directions are only for your guidance)
+
+PROBABILITY = <NUMBER> "%"
+	number from 1 to 100, representing a precent-change to actually
+	process the recipe after the filters were successfully passed.
+	defaults to 100%. Idealy planted wheat crops have a chance of 25%.
+
+WORLD
+	name of a world, check ingame if you want to limit this.
+
+LOCATION = <X>,<Y>,<Z>
+	x, y, z as block position within a world.
+
+RANGE = ( <MINIMUM> ( "<" | "<=" ) <AXIS> ( "<" | "<=" ) <MAXIMUM> ) | 
+        ( <VALUE> <COMPARATOR2> <AXIS> ) |
+        ( <AXIS> <COMPARATOR2> <VALUE> )
+
+AXIS = "X" | "Y" | "Z"
+
+COMPARATOR2 = "=" | "==" | "<" | "<=" | ">" | ">="
+
+AISLE 
+	three tab indented lines of three characters each.
+	characters that are not defined with MAPPING, as well as 
+	space characters will match any block.
+
+EFFECT = "NOTHING" | "SOUND" | "EXPLOSION" | "LIGHTNING"
+	what effect to play when the recipe is executed.
+	SOUND will play the block-place sound.
+	EXPLOSION will play a non-damaging explosion effect.
+	LIGHTNING will only play if the sky is visible.
+
+CONSUMPTION = "CENTER" | "FACING" | "ADJACENT"
+	Default is CENTER, FACING will delete 6 facing blocks, 
+	ADJACENT will delete all 27 blocks

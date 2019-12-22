@@ -1,0 +1,10 @@
+[{
+  "modid": "oregeno",
+  "name": "OreGeno",
+  "description": "Regenerate blocks under certain conditions",
+  "version": "1.0",
+  "url": "",
+  "authorList": [ "DosMike" ],
+  "requiredMods": [ "spongeapi@7.0.0" ],
+  "dependencies": [ "spongeapi@7.0.0" ]
+}]
